@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>موقع روبيك عالمي</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: 'Cairo', sans-serif;
+      padding: 20px;
+    }
+
+    .cover {
+      background: white;
+      border-radius: 24px;
+      padding: 60px 30px;
+      max-width: 550px;
+      width: 100%;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      transition: transform 0.4s;
+    }
+
+    .cover:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 16px 40px;
+      font-size: 1.4rem;
+      border-radius: 60px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(255,107,107,0.4);
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: #ff5252;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 22px rgba(255,107,107,0.6);
+    }
+
+    /* شاشة التهنئة */
+    #greeting {
+      display: none;
+      text-align: center;
+      color: white;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    #greeting h2 {
+      font-size: 2.6rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .friend-photo {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 4px solid white;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      margin: 20px auto;
+    }
+
+    #greeting p {
+      font-size: 1.5rem;
+      line-height: 1.7;
+      margin: 25px 0;
+    }
+
+    #greeting .from {
+      font-size: 1.3rem;
+      margin-top: 25px;
+      font-weight: 600;
+      color: #ffd166;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الغلاف الأول -->
+  <div class="cover" id="coverScreen">
+    <h1>موقع روبيك عالمي</h1>
+    <button class="btn" id="openBtn">افتح الموقع 🎁</button>
+  </div>
+
+  <!-- شاشة التهنئة -->
+  <div id="greeting">
+    <h2>محمد 🥳</h2>
+    
+    <!-- الصورة -->
+    <img src="friends.jpg" alt="محمد" class="friend-photo" id="friendPic">
+    
+    <p>
+      كل سنة وانت طيب يا كبير!<br>
+      عيد ميلادك فرحة لنا زيّك.<br>
+      دي هدية بسيطة من قلوبنا…<br>
+      مش بفلوس، بس بحب وتقدير ❤️
+    </p>
+    <div class="from">— يوسف ومعاذ</div>
+  </div>
+
+  <!-- موسيقى -->
+  <audio id="music">
+    <source src="https://www.soundjay.com/misc/sounds/birthday-happy-01.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.getElementById('openBtn').addEventListener('click', () => {
+      document.getElementById('coverScreen').style.display = 'none';
+      document.getElementById('greeting').style.display = 'block';
+      
+      // كونفتي
+      const duration = 5000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
+      const interval = setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+        const particleCount = 100 * (timeLeft / duration);
+        confetti({ ...defaults, particleCount, origin: { x: 0.2, y: Math.random() - 0.2 } });
+        confetti({ ...defaults, particleCount, origin: { x: 0.8, y: Math.random() - 0.2 } });
+      }, 200);
+
+      // موسيقى
+      const music = document.getElementById('music');
+      music.volume = 0.6;
+      music.play().catch(e => {
+        document.body.addEventListener('click', () => music.play(), { once: true });
+      });
+    });
+  </script>
+</body>
+</html>;
+  </script>
+</body>
+</html>
